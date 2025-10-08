@@ -1,0 +1,566 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Modern CSS Variables */
+:root {
+  --primary-gold: #D3AA62;
+  --primary-gold-light: #F4D03F;
+  --primary-gold-dark: #B7950B;
+  --dark-bg: #0A0A0A;
+  --dark-surface: #1A1A1A;
+  --dark-surface-light: #2A2A2A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B0B0;
+  --text-muted: #808080;
+  --accent-blue: #3B82F6;
+  --accent-green: #10B981;
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Header Layout Fixes */
+.topbar {
+  min-height: 48px;
+}
+
+.navbar {
+  min-height: 64px;
+}
+
+/* Prevent text overflow in navbar */
+.navbar-brand {
+  max-width: 200px;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .navbar-brand {
+    max-width: 150px;
+  }
+}
+
+/* Ensure proper spacing between topbar and navbar */
+.topbar + .navbar {
+  margin-top: 0;
+}
+
+/* Improve contrast and prevent blurring */
+.topbar, .navbar {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ensure social icons are always visible */
+.topbar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.topbar a:hover {
+  text-decoration: none;
+}
+
+/* Improve button contrast */
+.navbar button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure menu items are always readable */
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+}
+
+.navbar a:hover {
+  text-decoration: none;
+}
+
+/* Mobile social media icons visibility */
+@media (max-width: 640px) {
+  .topbar .flex.items-center.gap-2 {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .topbar .flex.items-center.gap-1 {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .topbar a[aria-label] {
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+}
+
+/* Ensure social icons are always visible */
+.topbar a[aria-label] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Fix email address truncation */
+.email-container {
+  min-width: 0;
+  width: 100%;
+}
+
+.email-container span {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+/* Ensure email links are fully visible */
+a[href*="mailto:"],
+a[href*="mail.google.com"] {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* Gmail link styling */
+a[href*="mail.google.com"] {
+  text-decoration: none;
+}
+
+a[href*="mail.google.com"]:hover {
+  text-decoration: underline;
+}
+
+/* Page2 component responsive improvements */
+@media (max-width: 768px) {
+  .page2-vision-card {
+    padding: 1.5rem;
+  }
+  
+  .page2-experience-badge {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    margin-bottom: 1rem;
+    width: fit-content;
+  }
+  
+  .page2-vision-header {
+    padding-right: 0 !important;
+  }
+}
+
+/* Enhanced card hover effects */
+.card-modern {
+  transition: all 0.3s ease;
+}
+
+.card-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Video modal enhancements */
+.video-modal {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Custom video controls */
+.video-controls {
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+}
+
+/* Smooth modal animations */
+.modal-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Keyboard shortcut styling */
+kbd {
+  background: #374151;
+  border: 1px solid #4B5563;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  color: #F9FAFB;
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* Hide navbar when video modal is open */
+html[data-video-modal-open="true"] .navbar {
+  display: none !important;
+  visibility: hidden !important;
+  transform: translateY(-100%) !important;
+  transition: all 0.3s ease !important;
+  pointer-events: none !important;
+}
+
+html[data-video-modal-open="true"] .topbar {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(-100%) !important;
+  transition: all 0.3s ease !important;
+  pointer-events: none !important;
+}
+
+/* Ensure video modal is above everything */
+.video-modal {
+  z-index: 9999 !important;
+}
+
+/* Additional mobile improvements for navbar hiding */
+@media (max-width: 768px) {
+  html[data-video-modal-open="true"] .navbar {
+    display: none !important;
+  }
+  
+  html[data-video-modal-open="true"] .topbar {
+    display: none !important;
+  }
+}
+
+/* Custom slider styling for volume control */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-track {
+  background: rgba(255, 255, 255, 0.2);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #D3AA62;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #F4D03F;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-track {
+  background: rgba(255, 255, 255, 0.2);
+  height: 4px;
+  border-radius: 2px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  background: #D3AA62;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Touch-friendly controls */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+  
+  /* Larger touch targets */
+  .touch-manipulation {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better mobile video modal */
+  .video-modal-mobile {
+    padding: 0.5rem;
+  }
+  
+  /* Hide keyboard shortcuts on mobile */
+  .mobile-hidden {
+    display: none;
+  }
+  
+  /* Better mobile progress bar */
+  .mobile-progress {
+    height: 8px;
+  }
+  
+  /* Mobile-friendly settings panel */
+  .mobile-settings {
+    right: 0.5rem;
+    left: 0.5rem;
+    min-width: auto;
+  }
+}
+
+/* Prevent zoom on input focus on mobile */
+@media screen and (max-width: 640px) {
+  input[type="range"] {
+    font-size: 16px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-gold-light);
+}
+
+/* Background with gradient overlay */
+.wallparr {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%),               url('/image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Modern Typography */
+.heading-xl {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.heading-lg {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.heading-md {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.heading-sm {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Modern Button Styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-[#D3AA62] to-[#F4D03F] text-black font-semibold px-8 py-4 rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300 transform inline-flex items-center justify-center gap-2 text-center no-underline;
+}
+
+.btn-primary:hover {
+  @apply shadow-2xl;
+}
+
+.btn-secondary {
+  @apply bg-transparent border-2 border-[#D3AA62] text-[#D3AA62] font-semibold px-8 py-4 rounded-xl hover:bg-[#D3AA62] hover:text-black transition-all duration-300 inline-flex items-center justify-center gap-2 text-center no-underline;
+}
+
+.btn-secondary:hover {
+  @apply shadow-lg;
+}
+
+/* Button focus states for accessibility */
+.btn-primary:focus,
+.btn-secondary:focus {
+  @apply outline-none ring-2 ring-[#D3AA62] ring-offset-2 ring-offset-black;
+}
+
+/* Button disabled states */
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  @apply opacity-50 cursor-not-allowed transform-none;
+}
+
+/* Button active states */
+.btn-primary:active,
+.btn-secondary:active {
+  @apply scale-95;
+}
+
+.btn-ghost {
+  @apply text-[#D3AA62] font-semibold px-6 py-3 rounded-lg hover:bg-[#D3AA62]/10 transition-all duration-300;
+}
+
+/* Card Styles */
+.card-modern {
+  @apply bg-gradient-to-br from-[#1A1A1A] to-[#2A2A2A] border border-[#333] rounded-2xl shadow-lg hover:shadow-xl hover:border-[#D3AA62]/50 transition-all duration-300;
+}
+
+.card-hover {
+  @apply transform hover:scale-105 hover:-translate-y-2 transition-all duration-300;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #D3AA62 0%, #F4D03F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass Morphism Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Grid */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Loading Animation */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .wallparr {
+    background-attachment: scroll;
+  }
+  
+  .card-modern {
+    @apply p-4;
+  }
+}
