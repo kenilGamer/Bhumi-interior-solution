@@ -165,6 +165,93 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  const { name, email, phone, message } = req.body;
+  
+  try {
+    // Validate required fields
+    if (!name || !email || !message) {
+      return res.status(400).json({ message: 'Name, email, and message are required' });
+    }
+
+    // Send email to business owner
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER, // Send to your business email
+      subject: `New Contact Form Submission from ${name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
+          <div style="background-color: #D3AA62; padding: 20px; text-align: center;">
+            <h2 style="color: white; margin: 0;">New Contact Form Submission</h2>
+          </div>
+          <div style="background-color: white; padding: 30px; border-radius: 8px; margin-top: 20px;">
+            <h3 style="color: #333; border-bottom: 2px solid #D3AA62; padding-bottom: 10px;">Contact Details</h3>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+            
+            <h3 style="color: #333; border-bottom: 2px solid #D3AA62; padding-bottom: 10px; margin-top: 30px;">Message</h3>
+            <p style="background-color: #f5f5f5; padding: 15px; border-left: 4px solid #D3AA62; white-space: pre-wrap;">${message}</p>
+            
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+            <p style="color: #666; font-size: 12px; text-align: center;">Bhumi Interior Solution - Contact Form Notification</p>
+          </div>
+        </div>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    // Send confirmation email to customer
+    const customerMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: 'Thank you for contacting Bhumi Interior Solution',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background-color: #D3AA62; padding: 20px; text-align: center;">
+            <h2 style="color: white; margin: 0;">Thank You for Contacting Us!</h2>
+          </div>
+          <div style="padding: 30px; background-color: #f9f9f9;">
+            <p>Dear ${name},</p>
+            <p>Thank you for reaching out to Bhumi Interior Solution. We have received your message and will get back to you shortly.</p>
+            
+            <div style="background-color: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #D3AA62;">
+              <h3 style="color: #333; margin-top: 0;">Your Message:</h3>
+              <p style="color: #666; white-space: pre-wrap;">${message}</p>
+            </div>
+            
+            <p>Our team typically responds within 24-48 hours. If your inquiry is urgent, please feel free to call us directly.</p>
+            
+            <div style="background-color: white; padding: 20px; border-radius: 8px; margin-top: 20px;">
+              <p style="margin: 5px 0;"><strong>Phone:</strong> +91-1234567890</p>
+              <p style="margin: 5px 0;"><strong>Email:</strong> bhumiinteriorsolution@gmail.com</p>
+              <p style="margin: 5px 0;"><strong>Address:</strong> Surat, Gujarat, India</p>
+            </div>
+            
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+            <p style="color: #666; font-size: 12px; text-align: center;">Bhumi Interior Solution - Transforming Spaces, Creating Dreams</p>
+          </div>
+        </div>
+      `
+    };
+
+    await transporter.sendMail(customerMailOptions);
+
+    res.status(200).json({ 
+      success: true, 
+      message: 'Your message has been sent successfully! We will contact you soon.' 
+    });
+  } catch (error) {
+    console.error('Error sending contact form email:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to send message. Please try again or contact us directly.' 
+    });
+  }
+});
+
 // Route for requesting password reset
 app.post('/forgot-password', async (req, res) => {
   const { email } = req.body;

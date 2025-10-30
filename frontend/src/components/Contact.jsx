@@ -13,6 +13,7 @@ function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState('');
+  const [error, setError] = useState('');
 
   // Get package parameter from URL
   useEffect(() => {
@@ -32,18 +33,38 @@ function Contact() {
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear error when user starts typing
+    if (error) setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setError(data.message || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setError('Failed to send message. Please check your connection and try again.');
+    } finally {
       setIsLoading(false);
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    }, 2000);
+    }
   };
 
   if (isSubmitted) {
@@ -146,6 +167,12 @@ function Contact() {
                   />
                 </div>
                 
+                {error && (
+                  <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-500 text-sm">
+                    {error}
+                  </div>
+                )}
+
                 <button
                   type="submit"
                   disabled={isLoading}
