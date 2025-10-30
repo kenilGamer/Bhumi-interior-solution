@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const multer = require('multer');
-const port = 5000;
+const port = process.env.PORT || 5000;
 const User = require('./models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -54,7 +54,7 @@ const upload = multer({
   }
 });
 app.use(cors({
-  origin: ['https://shreejayfurniture.store', 'https://www.shreejayfurniture.store', 'http://localhost:5173', 'https://web.shreejayfurniture.store'], // Add the new origin here
+  origin: [ 'http://localhost:5173', 'https://bhumiinteriorsolution.in', 'https://www.bhumiinteriorsolution.in'], // Add the new origin here
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
   allowedHeaders: ['Content-Type', 'Authorization', 'dataType', 'methods', 'serviceStatus', 'token', 'Access-Control-Allow-Origin'],
   credentials: true,
@@ -332,11 +332,33 @@ app.delete('/gallery/:id', verifyToken, async (req, res) => {
     if (!gallery) {
       return res.status(404).json({ message: 'Gallery item not found' });
     }
-    if (gallery.image) {
-      fs.unlinkSync(`uploads/${gallery.image}`);
+    // Delete image files
+    if (gallery.image && Array.isArray(gallery.image)) {
+      gallery.image.forEach(img => {
+        const filePath = path.join(__dirname, 'uploads', img);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+      });
+    } else if (gallery.image) {
+      const filePath = path.join(__dirname, 'uploads', gallery.image);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
     }
-    if (gallery.video) {
-      fs.unlinkSync(`uploads/${gallery.video}`);
+    // Delete video files
+    if (gallery.video && Array.isArray(gallery.video)) {
+      gallery.video.forEach(vid => {
+        const filePath = path.join(__dirname, 'uploads', vid);
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
+      });
+    } else if (gallery.video) {
+      const filePath = path.join(__dirname, 'uploads', gallery.video);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
     }
     res.status(200).json({ message: 'Gallery item deleted successfully' });
   } catch (error) {
@@ -357,19 +379,8 @@ app.get('/', (req, res) => {
 });
 
 // Starting the server
-if (process.env.NODE_ENV === 'production') {
-  // Production HTTPS server
-  const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/godcraft.fun/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/godcraft.fun/fullchain.pem'),
-  };
-
-  https.createServer(options, app).listen(443, () => {
-    console.log("Server is running on https://localhost:443");
-  });
-} else {
-  // Development HTTP server
-  app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-  });
-}
+// Note: Nginx handles SSL termination, so backend always runs on HTTP
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});

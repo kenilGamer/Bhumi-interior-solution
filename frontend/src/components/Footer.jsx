@@ -13,7 +13,7 @@ function Footer() {
 
   const services = [
     "Furniture Design & Manufacturing",
-    "Interior Design & Planning", 
+    "Interior Design & Planning",
     "POP Work & False Ceiling",
     "Color Scheme & Paint Work",
     "Civil Work & Renovation",
@@ -52,7 +52,7 @@ function Footer() {
                 <p className='text-gray-400'>Interior Designers & Furniture Makers</p>
               </div>
             </div>
-            
+
             <p className='text-gray-300 mb-8 leading-relaxed text-lg'>
               At Bhumi Interior Solution, we combine 30 years of experience with unmatched craftsmanship to transform spaces with premium furniture and bespoke interiors. Whether it's your home, office, or commercial project, we deliver designs that are both functional and elegant.
             </p>
@@ -97,7 +97,7 @@ function Footer() {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className='flex items-center gap-3 p-4 bg-[#1A1A1A] rounded-xl border border-[#333]'>
                   <FaWhatsapp className='text-[#D3AA62] text-xl' />
                   <div>
@@ -156,11 +156,11 @@ function Footer() {
               <span className='text-gray-400 font-medium'>Follow Us:</span>
               <div className='flex gap-4'>
                 {socialLinks.map((social, index) => (
-                  <a 
+                  <a
                     key={index}
-                    href={social.href} 
-                    target='_blank' 
-                    rel='noopener noreferrer' 
+                    href={social.href}
+                    target='_blank'
+                    rel='noopener noreferrer'
                     className='w-10 h-10 bg-[#1A1A1A] rounded-lg flex items-center justify-center text-gray-400 hover:text-[#D3AA62] hover:bg-[#D3AA62]/10 transition-all duration-300'
                     aria-label={social.label}
                   >
@@ -169,7 +169,11 @@ function Footer() {
                 ))}
               </div>
             </div>
-
+            <div className='flex items-center gap-2'>
+              <a href='https://www.creativitycoder.com' className='text-[#D3AA62] hover:text-[#F4D03F] transition-colors duration-300'>
+                <img src="/CreativityCoderlogoWWhite.svg" alt="CreativityCoder" className='w-20 h-20 scale-[2.3]' />
+              </a>
+            </div>
             {/* Copyright */}
             <div className='text-center md:text-right'>
               <p className='text-gray-500 text-sm'>

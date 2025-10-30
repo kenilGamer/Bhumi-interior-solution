@@ -1,30 +1,9 @@
 version: '3.8'
 
-services:
-  # MongoDB Database
-  mongodb:
-    image: mongo:6.0
-    container_name: bhumi-interior-mongodb
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-password123}
-      MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-bhumi-interior}
-    volumes:
-      - mongodb_data:/data/db
-      - mongodb_config:/data/configdb
-      - ./backups:/backups
-    networks:
-      - bhumi-interior-network
-    healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+# Docker Compose configuration for MongoDB Atlas
+# Use this when you're using MongoDB Atlas instead of local MongoDB
 
+services:
   # Backend API
   backend:
     build:
@@ -37,7 +16,7 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-production}
       PORT: 5000
-      MONGO_URI: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-password123}@mongodb:27017/${MONGO_DATABASE:-bhumi-interior}?authSource=admin
+      MONGO_URI: ${MONGO_URI}
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
       EMAIL_USER: ${EMAIL_USER}
@@ -49,9 +28,6 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
       - ./backend/logs:/app/logs
-    depends_on:
-      mongodb:
-        condition: service_healthy
     networks:
       - bhumi-interior-network
     healthcheck:
@@ -74,6 +50,8 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./frontend/dist:/usr/share/nginx/html:ro
       - ./backend/uploads:/usr/share/nginx/uploads:ro
+      - /var/www/lumelight-interior/frontend/dist:/var/www/lumelight-interior/frontend/dist:ro
+      - /var/www/lumelight-interior/backend/uploads:/var/www/lumelight-interior/backend/uploads:ro
       - ./certbot/conf:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
       - ./nginx/logs:/var/log/nginx
@@ -92,12 +70,6 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
-volumes:
-  mongodb_data:
-    driver: local
-  mongodb_config:
-    driver: local
 
 networks:
   bhumi-interior-network:

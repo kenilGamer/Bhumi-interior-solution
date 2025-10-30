@@ -1,0 +1,49 @@
+2025/10/08 13:57:23 [emerg] 1#1: host not found in upstream "backend" in /etc/nginx/conf.d/bhumi-interior-initial.conf:27
+2025/10/08 13:57:29 [emerg] 1#1: host not found in upstream "backend" in /etc/nginx/conf.d/bhumi-interior-initial.conf:27
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "www.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "www.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 13:57:35 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:09:11 [emerg] 10#10: host not found in upstream "host.docker.internal" in /etc/nginx/conf.d/lumelight-interior.conf:28
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "www.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "www.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:09:48 [warn] 16#16: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "www.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "www.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 22#22: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [notice] 22#22: signal process started
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "www.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on 0.0.0.0:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "www.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:07 [warn] 1#1: conflicting server name "api.bhumiinteriorsolution.in" on [::]:80, ignored
+2025/10/08 14:10:39 [notice] 29#29: signal process started
+2025/10/08 14:10:40 [error] 35#35: *17 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 88.222.241.176, server: lumelightinteriers.in, request: "HEAD / HTTP/1.1", host: "lumelightinteriers.in"
+2025/10/08 14:10:42 [error] 35#35: *18 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 88.222.241.176, server: lumelightinteriers.in, request: "HEAD / HTTP/1.1", host: "bhumiinteriorsolution.in"
+2025/10/08 14:11:43 [error] 35#35: *19 upstream timed out (110: Operation timed out) while connecting to upstream, client: 88.222.241.176, server: lumelightinteriers.in, request: "GET /api/ HTTP/1.1", upstream: "http://172.17.0.1:5001/", host: "lumelightinteriers.in"
+2025/10/08 14:13:22 [error] 35#35: *21 rewrite or internal redirection cycle while internally redirecting to "/index.html", client: 3.74.234.166, server: lumelightinteriers.in, request: "POST /client/login HTTP/1.1", host: "88.222.241.176"

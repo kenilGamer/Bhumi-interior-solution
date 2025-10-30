@@ -4,6 +4,29 @@
 
 ### Node ###
 # Logs
+uploads
+uploads/*
+.env
+.env.development
+.env.test
+.env.production
+.env.local
+.env.development
+.env.test
+.env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+.env.development
+.env.test
+.env.production
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 logs
 *.log
 npm-debug.log*
@@ -11,7 +34,6 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
-uploads
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
