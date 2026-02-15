@@ -7,7 +7,7 @@ export default defineConfig({
     server: {
         proxy: {
             '/api': {
-                target: 'http://37.114.37.82:5000', // Backend URL
+                target: 'http://109.71.252.147:5000', // Backend URL
                 changeOrigin: true,
             },
         },
