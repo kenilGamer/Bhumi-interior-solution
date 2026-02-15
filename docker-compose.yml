@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+
   # MongoDB Database
   mongodb:
     image: mongo:6.0
@@ -22,8 +21,9 @@ services:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 5
       start_period: 40s
+
 
   # Backend API
   backend:
@@ -35,17 +35,13 @@ services:
     ports:
       - "5000:5000"
     environment:
-      NODE_ENV: ${NODE_ENV:-production}
+      NODE_ENV: production
       PORT: 5000
       MONGO_URI: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-password123}@mongodb:27017/${MONGO_DATABASE:-bhumi-interior}?authSource=admin
       JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key}
-      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
-      EMAIL_USER: ${EMAIL_USER}
-      EMAIL_PASS: ${EMAIL_PASS}
-      EMAIL_HOST: ${EMAIL_HOST:-smtp.gmail.com}
-      EMAIL_PORT: ${EMAIL_PORT:-587}
+      JWT_EXPIRES_IN: 7d
       FRONTEND_URL: https://${DOMAIN:-bhumiinteriorsolution.in}
-      MAX_FILE_SIZE: ${MAX_FILE_SIZE:-10485760}
+      MAX_FILE_SIZE: 10485760
     volumes:
       - ./backend/uploads:/app/uploads
       - ./backend/logs:/app/logs
@@ -58,10 +54,11 @@ services:
       test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 5
       start_period: 40s
 
-  # Nginx Reverse Proxy
+
+  # NGINX Reverse Proxy
   nginx:
     image: nginx:alpine
     container_name: bhumi-interior-nginx
@@ -72,18 +69,28 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/snippets:/etc/nginx/snippets:ro
       - ./frontend/dist:/usr/share/nginx/html:ro
       - ./backend/uploads:/usr/share/nginx/uploads:ro
       - ./certbot/conf:/etc/letsencrypt:ro
       - ./certbot/www:/var/www/certbot:ro
       - ./nginx/logs:/var/log/nginx
     depends_on:
-      - backend
+      backend:
+        condition: service_started
     networks:
       - bhumi-interior-network
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    command: >
+      /bin/sh -c "
+      while :; do
+        sleep 6h & wait \$${!};
+        nginx -s reload;
+      done &
+      nginx -g 'daemon off;'
+      "
 
-  # Certbot for SSL
+
+  # Certbot SSL Renewal Service
   certbot:
     image: certbot/certbot
     container_name: bhumi-interior-certbot
@@ -91,13 +98,23 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    entrypoint: >
+      /bin/sh -c "
+      trap exit TERM;
+      while :; do
+        certbot renew;
+        sleep 12h & wait \$${!};
+      done;
+      "
+
 
 volumes:
   mongodb_data:
     driver: local
+
   mongodb_config:
     driver: local
+
 
 networks:
   bhumi-interior-network:
